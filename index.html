@@ -267,8 +267,23 @@ function enviarEmail(){
   var corpo="Oi Paola!\n\nEscolhi te presentear com:\n"+item+"\nValor: "+valor+"\n\n";
   if(msg){corpo+="Mensagem:\n"+msg+"\n\n";}
   corpo+="Já fiz o pix! Parabéns pela conquista, Bombeira! 🔥";
-  var gmailUrl="https://mail.google.com/mail/?view=cm&fs=1&to=paola.gama01%40gmail.com&su="+assunto+"&body="+encodeURIComponent(corpo);
-  window.open(gmailUrl,"_blank");
+  var isMobile=/iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+  if(isMobile){
+    // No celular tenta abrir o app Gmail nativo, se não funcionar cai no mailto
+    var gmailApp="googlegmail://co?to=paola.gama01@gmail.com&subject="+assunto+"&body="+encodeURIComponent(corpo);
+    var fallback="mailto:paola.gama01@gmail.com?subject="+assunto+"&body="+encodeURIComponent(corpo);
+    var iframe=document.createElement("iframe");
+    iframe.style.display="none";
+    document.body.appendChild(iframe);
+    iframe.src=gmailApp;
+    setTimeout(function(){
+      document.body.removeChild(iframe);
+      window.location.href=fallback;
+    },1500);
+  } else {
+    var gmailUrl="https://mail.google.com/mail/?view=cm&fs=1&to=paola.gama01%40gmail.com&su="+assunto+"&body="+encodeURIComponent(corpo);
+    window.open(gmailUrl,"_blank");
+  }
 }
 render();
 </script>
