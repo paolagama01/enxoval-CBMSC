@@ -264,12 +264,11 @@ function enviarEmail(){
   var msg=document.getElementById("msgInput").value.trim();
   var valor=document.getElementById("mval").textContent;
   var assunto=encodeURIComponent("Presente para a Paola 🎁 — "+item);
-  var corpo="Oi Paola!%0A%0AEscolhi te presentear com:%0A"+encodeURIComponent(item)+"%0AValor: "+encodeURIComponent(valor)+"%0A%0A";
-  if(msg){
-    corpo+="Mensagem:%0A"+encodeURIComponent(msg)+"%0A%0A";
-  }
-  corpo+="Já fiz o pix! Parabéns pela conquista, Bombeira! 🔥%0A";
-  window.location.href="mailto:paola.gama01@gmail.com?subject="+assunto+"&body="+corpo;
+  var corpo="Oi Paola!\n\nEscolhi te presentear com:\n"+item+"\nValor: "+valor+"\n\n";
+  if(msg){corpo+="Mensagem:\n"+msg+"\n\n";}
+  corpo+="Já fiz o pix! Parabéns pela conquista, Bombeira! 🔥";
+  var gmailUrl="https://mail.google.com/mail/?view=cm&fs=1&to=paola.gama01%40gmail.com&su="+assunto+"&body="+encodeURIComponent(corpo);
+  window.open(gmailUrl,"_blank");
 }
 render();
 </script>
